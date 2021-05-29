@@ -7,6 +7,7 @@ class SliderPage extends StatefulWidget {
 
 class _SliderPageState extends State<SliderPage> {
   double _valorSlider = 100.0;
+  bool _bloquearCheck = false;
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +20,65 @@ class _SliderPageState extends State<SliderPage> {
         child: Column(
           children: [
             _crearSlider(),
+            _checkBox(),
+            _crearSwicth(),
             Expanded(
               child: _crearImagen(),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _crearSlider() {
+    return Slider(
+      activeColor: Colors.indigoAccent,
+      label: 'Tamaño de la imagen',
+      //divisions: 20,
+      value: _valorSlider,
+      min: 10.0,
+      max: 400.0,
+      onChanged: (_bloquearCheck)
+          ? null
+          : (valor) {
+              setState(() {
+                _valorSlider = valor;
+              });
+            },
+    );
+  }
+
+  Widget _checkBox() {
+    /* return Checkbox(
+      value: _bloquearCheck,
+      onChanged: (valor) {
+        setState(() {
+          _bloquearCheck = valor;
+        });
+      },
+    ); */
+
+    return CheckboxListTile(
+      title: Text('Bloquear Slider'),
+      value: _bloquearCheck,
+      onChanged: (valor) {
+        setState(() {
+          _bloquearCheck = valor;
+        });
+      },
+    );
+  }
+
+  Widget _crearSwicth() {
+    return SwitchListTile(
+      title: Text('Bloquear Slider'),
+      value: _bloquearCheck,
+      onChanged: (valor) {
+        setState(() {
+          _bloquearCheck = valor;
+        });
+      },
     );
   }
 
@@ -35,22 +89,6 @@ class _SliderPageState extends State<SliderPage> {
       ),
       width: _valorSlider,
       fit: BoxFit.contain,
-    );
-  }
-
-  Widget _crearSlider() {
-    return Slider(
-      activeColor: Colors.indigoAccent,
-      label: 'Tamaño de la imagen',
-      divisions: 20,
-      value: _valorSlider,
-      min: 10.0,
-      max: 400.0,
-      onChanged: (valor) {
-        setState(() {
-          _valorSlider = valor;
-        });
-      },
     );
   }
 }
